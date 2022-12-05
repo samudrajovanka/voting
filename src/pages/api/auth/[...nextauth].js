@@ -36,7 +36,6 @@ export const getAuthOptions = (option) => {
 
 export default async function auth(req, res) {
   const emailCookie = getCookie(process.env.NEXT_PUBLIC_EMAIL_KEY, { req, res })
-  console.log(emailCookie)
 
   return await NextAuth(req, res, getAuthOptions({ email: emailCookie, req, res }));
 }

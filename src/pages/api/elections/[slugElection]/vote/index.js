@@ -30,8 +30,6 @@ const handler = async (req, res) => {
         });
       }
 
-      console.log(req.body.candidateId);
-
       const { candidateId } = req.body;
 
       if (!candidateId) {
@@ -43,7 +41,6 @@ const handler = async (req, res) => {
       }
 
       const userParticipantIndex = election.participants.findIndex((participant) => {
-        console.log(participant.email, session.user.email)
         return participant.email === session.user.email;
       });
 

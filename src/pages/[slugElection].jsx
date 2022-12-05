@@ -42,7 +42,6 @@ const ElectionPage = ({ election, slug }) => {
   const [countdown, setCountdown] = useState('');
   const { data: session } = useSession();
   const [loadingVote, setLoadingVote] = useState(false);
-  console.log(election)
 
   useEffect(() => {
     const finishedElection = async () => {
@@ -329,7 +328,7 @@ const ElectionPage = ({ election, slug }) => {
 export const getServerSideProps = async (context) => {
   const { slugElection } = context.query;
   
-  const electionResponse = await fetch(`${provess.env.BASE_URL_API}/elections/${slugElection}`, {
+  const electionResponse = await fetch(`${process.env.BASE_URL_API}/elections/${slugElection}`, {
     headers: {
       'X-API-KEY': process.env.NEXT_PUBLIC_API_KEY,
     },
