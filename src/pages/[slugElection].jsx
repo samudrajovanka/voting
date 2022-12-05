@@ -7,6 +7,9 @@ import {
   Card,
   CardBody,
   Heading,
+  Input,
+  InputGroup,
+  InputRightElement,
   ListItem,
   Modal,
   ModalBody,
@@ -23,11 +26,10 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import dayjs from "dayjs";
-import { FaCheckCircle, FaTimesCircle, FaChevronRight } from "react-icons/fa";
+import { FaCheckCircle, FaTimesCircle, FaChevronRight, FaSearch } from "react-icons/fa";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { deleteCookie, setCookie } from 'cookies-next';
 import Head from "next/head";
-
 
 const BADGE_COLOR_SCHEME = {
   'CREATED': 'blue',
@@ -42,6 +44,7 @@ const ElectionPage = ({ election, slug }) => {
   const [countdown, setCountdown] = useState('');
   const { data: session } = useSession();
   const [loadingVote, setLoadingVote] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     const finishedElection = async () => {
@@ -254,8 +257,19 @@ const ElectionPage = ({ election, slug }) => {
             <Badge colorScheme="red">Unvoted {currentElection.participants.length - calculateParticipantsVoted(currentElection.participants)}</Badge>
           </Box>
 
+          <InputGroup my="8px">
+            <Input
+              placeholder="Search by name"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)} 
+            />
+            <InputRightElement>
+              <FaSearch />
+            </InputRightElement>
+          </InputGroup>
+
           <Box mt="12px" display="flex" flexDir="column" gap="16px">
-            {currentElection.participants.map((participant) => (
+            {currentElection.participants.filter((participant) => RegExp(`${searchValue}`, 'gi').test(participant.name)).map((participant) => (
               <Card key={participant.name} onClick={() => handleLogin(participant.email)} cursor={session ? 'default' : 'pointer'}>
                 <CardBody display="flex" alignItems="center" gap="8px">
                   {participant.vote && (
