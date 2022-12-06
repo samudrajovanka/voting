@@ -129,6 +129,8 @@ const ElectionPage = ({ election, slug }) => {
   };
 
   const handleLogin = (email) => {
+    if (session) return;
+
     setCookie(process.env.NEXT_PUBLIC_EMAIL_KEY, email);
 
     signIn('google', { email }, { login_hint: email, prompt: 'login' });
