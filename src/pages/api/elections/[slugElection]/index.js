@@ -18,6 +18,10 @@ const handler = async (req, res) => {
         });
       }
 
+      const dateNow = new Date();
+
+      if (dateNow >= election.endDate) {}
+
       return res.status(200).json({
         success: true,
         data: election,
@@ -25,9 +29,9 @@ const handler = async (req, res) => {
       })
     }
     case 'PUT': {
-      const { ADMIN_KEY } = req.headers;
+      const { admin_key } = req.headers;
 
-      if (ADMIN_KEY !== process.env.NEXT_PUBLIC_ADMIN_KEY) {
+      if (admin_key !== process.env.NEXT_PUBLIC_ADMIN_KEY) {
         return res.status(401).json({
           success: false,
           message: "Unauthorized",
