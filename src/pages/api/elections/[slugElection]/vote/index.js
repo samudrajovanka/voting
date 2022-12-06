@@ -19,6 +19,7 @@ const handler = async (req, res) => {
   switch (method) {
     case "POST": {
       const { slugElection } = req.query;
+      console.log(slugElection)
 
       const election = await ElectionModel.findOne({ slug: slugElection });
 
@@ -36,6 +37,16 @@ const handler = async (req, res) => {
         return res.status(400).json({
           success: false,
           message: "Candidate id is required",
+          code: 400
+        });
+      }
+
+      const dateNow = new Date();
+
+      if (dateNow < election.startDate || dateNow >= election.endDate) {
+        return res.status(400).json({
+          success: false,
+          message: "Election is not active",
           code: 400
         });
       }

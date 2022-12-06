@@ -13,11 +13,6 @@ export const getAuthOptions = (option) => {
     ],
     callbacks: {
       async signIn({ user }) {
-        if (user.email !== option?.email) {
-          deleteCookie(process.env.NEXT_PUBLIC_EMAIL_KEY, { req: option.req, res: option.res });
-          return false
-        };
-
         const election = await ElectionModel.findOne({ participants: {
           $elemMatch: { email: user.email }
         }});
