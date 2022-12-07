@@ -181,9 +181,7 @@ const ElectionPage = ({ election, slug }) => {
 
                       <Text mt="8px">{candidate.name}</Text>
 
-                      {currentElection.status !== 'ONGOING' && (
-                        <Tag colorScheme="green" borderRadius="full">Vote: {candidate.totalVote}</Tag>
-                      )}
+                      <Tag colorScheme="green" borderRadius="full">Vote: {candidate.totalVote}</Tag>
                     </CardBody>
                 </Card>
               ))}
