@@ -51,7 +51,7 @@ const handler = async (req, res) => {
       }
 
       const userParticipantIndex = election.participants.findIndex((participant) => {
-        return participant.email === session.user.email;
+        return participant.email.toLowerCase() === session.user.email.toLowerCase();
       });
 
       if (userParticipantIndex === -1) {
