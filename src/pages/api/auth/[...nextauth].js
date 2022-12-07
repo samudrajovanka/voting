@@ -14,7 +14,12 @@ export const getAuthOptions = (option) => {
     callbacks: {
       async signIn({ user }) {
         const election = await ElectionModel.findOne({ participants: {
-          $elemMatch: { email: user.email }
+          $elemMatch: { 
+            email: {
+              $regex: user.email,
+              $options: "i"
+            }
+          }
         }});
 
         if (!election) {
