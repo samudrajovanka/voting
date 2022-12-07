@@ -19,7 +19,6 @@ const handler = async (req, res) => {
   switch (method) {
     case "POST": {
       const { slugElection } = req.query;
-      console.log(slugElection)
 
       const election = await ElectionModel.findOne({ slug: slugElection });
 

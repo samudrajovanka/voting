@@ -23,6 +23,7 @@ const ModalDetailCandidate = ({
   electionStatus,
   isUserVote,
   candidate,
+  setCurrentElection,
   slug
 }) => {
   const { data: session } = useSession();
@@ -50,9 +51,7 @@ const ModalDetailCandidate = ({
       }),
     }).then((res) => res.json());
 
-      console.log('1', voteResponse)
     if (voteResponse.code >= 400) {
-      console.log(voteResponse)
       alert(voteResponse.message);
       setLoadingVote(false);
       return;
